@@ -12,13 +12,13 @@ logger_format = '%(asctime)s:%(threadName)s:%(message)s'
 logging.basicConfig(format=logger_format, level=logging.DEBUG, datefmt="%H:%M:%S")
 
 # MQTT config
-mqtt_broker = 'localhost'
-mqtt_port = 1883
+mqtt_broker = os.getenv('MQTT_BROKER_ADDRESS', 'localhost')
+mqtt_port = os.getenv('MQTT_BROKER_PORT', 1883)
 #mqtt_username = 'emqx'
 #mqtt_password = 'public'
 
 # data config 
-data_dir = "data/" # folder with CSV data files (with trailing slash)
+data_dir = os.getenv('DATA_DIRECTORY', 'data/') # folder with CSV data files (with trailing slash)
 starting_time = datetime.datetime(2019, 4, 1) # must be set to a time before any sensored data items
 
 # connects to MQTT broker

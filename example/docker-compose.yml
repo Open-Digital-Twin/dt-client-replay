@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  client:
+    image: "opendigitaltwin/dt-client-replay:latest"
+    depends_on:
+      - mqtt-broker
+    environment:
+      - MQTT_BROKER_ADDRESS=mqtt-broker
+      - MQTT_BROKER_PORT=1883
+      - DATA_DIRECTORY=/data/
+    networks:
+      - default
+    volumes:
+      - ./data:/data
+  mqtt-broker:
+    image: "emqx/emqx:latest"
+    networks:
+      - default
+    restart: always
+networks:
+  default:
