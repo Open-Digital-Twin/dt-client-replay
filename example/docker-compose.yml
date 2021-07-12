@@ -8,29 +8,15 @@ services:
     environment:
       - MQTT_BROKER_ADDRESS=mqtt-broker
       - MQTT_BROKER_PORT=1883
-      - DATA_DIRECTORY=/data
+      - DATA_DIRECTORY=/data/
     networks:
       - default
     volumes:
       - ./data:/data
-    deploy:
-      replicas: 1
-      placement:    
-        constraints:
-          - node.labels.name==dtwins1
-    command: dt-client-replay
   mqtt-broker:
-    image: "eclipse-mosquitto:1.6.10"
+    image: "emqx/emqx:latest"
     networks:
       - default
-    volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - /mosquitto/log:/mosquitto/log
-      - /mosquitto/data:/mosquitto/data
     restart: always
-    deploy:
-      placement:
-        constraints:
-          - node.labels.name==dtwins1
 networks:
   default:
