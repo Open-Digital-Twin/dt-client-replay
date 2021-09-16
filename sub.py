@@ -1,5 +1,5 @@
 import json
-import datetime
+import time
 import paho.mqtt.client as mqtt
 
 broker = 'localhost'
@@ -20,8 +20,8 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     payload = json.loads(msg.payload)
-    pubtime = datetime.datetime.fromisoformat(payload["time"])
-    delta = datetime.datetime.today() - pubtime
+    pubtime = payload["time"]
+    delta = time.time() - pubtime
     if payload["count"] % 100 == 0:
         print(f"{msg.topic} {payload} {delta}")
 

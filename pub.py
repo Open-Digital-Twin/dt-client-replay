@@ -1,6 +1,5 @@
 import time
 import json
-import datetime
 from paho.mqtt import client as mqtt_client
 
 broker = 'localhost'
@@ -27,8 +26,8 @@ def connect_mqtt():
 def publish(client):
      msg_count = 1
      while msg_count <= 10000:
-         #time.sleep(0.00001)
-         msg = {"count": msg_count, "time": datetime.datetime.today().isoformat()}
+         time.sleep(0.0001)
+         msg = {"count": msg_count, "time": time.time()}
          result = client.publish(topic, json.dumps(msg))
          # result: [0, 1]
          status = result[0]
